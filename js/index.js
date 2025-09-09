@@ -8,11 +8,11 @@ console.log(parser.events);
 
 const samples = [
     "HZ+ : CU75076V2 - ICT2 Introduction - UVE",
-    "SUMMARY:HZ+ : CU75016V2 - ICT2_NL - Continuous integration - CIN",
-    "SUMMARY:HZ+ : CU75076V2 - ICT2_NL User experience design - UVE",
-    "SUMMARY:HZ+ : CU75076V2 - ICT2 Book test - UVE",
-    "SUMMARY:HZ+ : EN39301V24 - ICT2-NL - English - Reading and Writing skills - Reading and Writing skills for IT",
-    "SUMMARY:HZ+ : EN39301V24 - VT - gel. 2 - Reading Test - Reading and Writing skills for IT"
+    "HZ+ : CU75016V2 - ICT2_NL - Continuous integration - CIN",
+    "HZ+ : CU75076V2 - ICT2_NL User experience design - UVE",
+    "HZ+ : CU75076V2 - ICT2 Book test - UVE",
+    "HZ+ : EN39301V24 - ICT2-NL - English - Reading and Writing skills - Reading and Writing skills for IT",
+    "HZ+ : EN39301V24 - VT - gel. 2 - Reading Test - Reading and Writing skills for IT"
 ];
 // Parse all
 const parsed = samples.map(SummaryParser.parse);
