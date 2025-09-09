@@ -14,9 +14,9 @@ export class SummaryParser {
         this.class = parts[2] ?? '';
         const name = (parts[4] ?? '').split(' - ');
         this.name = name[0] ?? '';
+        this.nameAddition1 = (name.length > 2 ? name[1] : '') ?? '';
+        this.nameAddition2 = (name.length > 3 ? name[2] : '') ?? '';
         this.courseName = name[name.length - 1] ?? '';
-        this.nameAddition1 = (name.length < 2 ? name[1] : '') ?? '';
-        this.nameAddition2 = (name.length < 3 ? name[2] : '') ?? '';
     }
 
     /**
