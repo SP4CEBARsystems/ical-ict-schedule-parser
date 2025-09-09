@@ -1,14 +1,24 @@
 import icsData from './data.js';
-import { ICalParser } from './ICalParser.js';
+import { ICalParser } from "./ICalParser.js";
 import { SummaryParser } from './SummaryParser.js';
+import TableFormatter from './TableFormatter.js';
+// import EventTimeFormatter from './TimeParser.js';
 
 // Usage
 const parser = new ICalParser(icsData);
-console.log(parser.events);
+const events = parser.events;
+console.log(events);
+const tableFormatted = TableFormatter.format(events);
+console.log(tableFormatted);
 
-const summaryParsers = parser.events.map(e => new SummaryParser(e.summary));
+navigator.clipboard.writeText(tableFormatted).then(function() {
+    console.log('Async: Copying to clipboard was successful!');
+}, function(err) {
+    console.error('Async: Could not copy text: ', err);
+});
 
-console.log('summaryParsers', summaryParsers);
+// const summaryParsers = parser.events.map(e => new SummaryParser(e.summary));
+// console.log('summaryParsers', summaryParsers);
 
 const samples = [
     "HZ+ : CU75076V2 - ICT2 Introduction - UVE",
@@ -24,3 +34,22 @@ const parsed = samples.map(SummaryParser.parse);
 // Build tab-separated table
 const headers = ["courseCode", "class", "className", "courseName"];
 const rows = [headers.join('\t'), ...parsed.map(obj => headers.map(h => obj[h]).join('\t'))];
+
+
+/* --------------------------
+   Example usage
+   -------------------------- */
+
+const sampleEvent = {
+    summary: "HZ+ : CU75076V2 - ICT2 Introduction - UVE",
+    start: "20250901T090000",
+    end: "20250901T103000",
+    location: "GW027",
+    status: "CONFIRMED"
+};
+
+// console.log(EventTimeFormatter.toSheetRow(sampleEvent));
+// Output: "01-09-2025    09:00    10:30"
+
+
+// TableFormatter.format();

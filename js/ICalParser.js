@@ -1,55 +1,5 @@
-// ICalEvent class to represent and parse a single VEVENT block
-class ICalEvent {
-    /**
-     * @type {any}
-     */
-    block
-    
-    /**
-     * @type {string}
-     */
-    uid
-    
-    /**
-     * @type {string}
-     */
-    summary
-    
-    /**
-     * @type {string}
-     */
-    start
-    
-    /**
-     * @type {string}
-     */
-    end
-    
-    /**
-     * @type {string}
-     */
-    location
-    
-    /**
-     * @type {string}
-     */
-    status
+import { ICalEvent } from "./ICalEvent.js";
 
-    constructor(block) {
-        this.block = block;
-        this.uid = this.getLine("UID");
-        this.summary = this.getLine("SUMMARY");
-        this.start = this.getLine("DTSTART[^:]*"); // handles timezones
-        this.end = this.getLine("DTEND[^:]*");
-        this.location = this.getLine("LOCATION");
-        this.status = this.getLine("STATUS");
-    }
-
-    getLine(tag) {
-        const match = this.block.match(new RegExp(`^${tag}:(.*)$`, "m"));
-        return match ? match[1].trim() : null;
-    }
-}
 // ICalParser class to handle the parsing of the entire ICS data
 export class ICalParser {
     constructor(icsText) {
@@ -62,6 +12,6 @@ export class ICalParser {
     }
 
     parseEvents() {
-        return this.getEventBlocks().map(block => new ICalEvent(block));
+        return this.getEventBlocks().map(block => new ICalEvent(block).flatten());
     }
 }

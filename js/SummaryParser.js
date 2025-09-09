@@ -9,7 +9,7 @@ export class SummaryParser {
      */
     constructor(summary){
         const parts = [...summary.matchAll(/^HZ\+ ?: ?((?:CU|EN)\d+\w*) - (VT|ICT2(?:(?:_|-)NL)?) (?:- )?(gel\. \d)? ?(?:- )?(.+)$/mg)][0]??[]
-        console.log('parts', summary, parts);
+        // console.log('parts', summary, parts);
         this.code = parts[1] ?? '';
         this.class = parts[2] ?? '';
         const name = (parts[4] ?? '').split(' - ');
