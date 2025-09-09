@@ -1,46 +1,39 @@
 import icsData from './data.js';
 
-// console.log('start');
+// ICalEvent class to represent and parse a single VEVENT block
+class ICalEvent {
+    constructor(block) {
+        this.block = block;
+        this.uid = this.getLine("UID");
+        this.summary = this.getLine("SUMMARY");
+        this.start = this.getLine("DTSTART[^:]*"); // handles timezones
+        this.end = this.getLine("DTEND[^:]*");
+        this.location = this.getLine("LOCATION");
+        this.status = this.getLine("STATUS");
+    }
 
-
-// 1. Split into VEVENT blocks
-const eventBlocks = [...icsData.matchAll(/BEGIN:VEVENT[\s\S]*?END:VEVENT/g)].map(s=>s[0])
-    //.filter(block => block.includes("SUMMARY"));
-
-// console.log(eventBlocks);
-
-const parseEvent = (block) => {
-    // console.log(block);
-    const getLine = (tag) => {
-        const match = block.match(new RegExp(`^${tag}:(.*)$`, "m"));
-        // console.log(match);
+    getLine(tag) {
+        const match = this.block.match(new RegExp(`^${tag}:(.*)$`, "m"));
         return match ? match[1].trim() : null;
-    };
+    }
+}
 
-    return {
-        uid: getLine("UID"),
-        summary: getLine("SUMMARY"),
-        start: getLine("DTSTART[^:]*"), // handles timezones like DTSTART;TZID=...
-        end: getLine("DTEND[^:]*"),
-        location: getLine("LOCATION"),
-        status: getLine("STATUS")
-    };
-};
+// ICalParser class to handle the parsing of the entire ICS data
+class ICalParser {
+    constructor(icsText) {
+        this.icsText = icsText;
+        this.events = this.parseEvents();
+    }
 
-// 2. Parse all blocks
-const events = eventBlocks.map(parseEvent);
+    getEventBlocks() {
+        return [...this.icsText.matchAll(/BEGIN:VEVENT[\s\S]*?END:VEVENT/g)].map(s => s[0]);
+    }
 
-console.log(events);
+    parseEvents() {
+        return this.getEventBlocks().map(block => new ICalEvent(block));
+    }
+}
 
-
-// // Grab all SUMMARY lines
-// const summaries = [...icsData.matchAll(/^SUMMARY:(.*)$/gm)];
-// console.log("Summaries:", summaries.map(m => m[1]));
-
-// // Grab all DTSTART lines
-// const starts = [...icsData.matchAll(/^DTSTART:(.*)$/gm)];
-// console.log("Start times:", starts.map(m => m[1]));
-
-// // Grab all DTEND lines
-// const ends = [...icsData.matchAll(/^DTEND:(.*)$/gm)];
-// console.log("End times:", ends.map(m => m[1]));
+// Usage
+const parser = new ICalParser(icsData);
+console.log(parser.events);
