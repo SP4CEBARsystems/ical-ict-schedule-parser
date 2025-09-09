@@ -4,6 +4,21 @@
  */
 export class SummaryParser {
     /**
+     * 
+     * @param {string} summary 
+     */
+    constructor(summary){
+        const parts = [...summary.matchAll(/^HZ\+ ?: ?((?:CU|EN)\d+\w*) - (VT|ICT2(?:(?:_|-)NL)?) (?:- )?(gel\. \d)? ?(?:- )?(.+)$/mg)][0]??[]
+        console.log('parts', summary, parts);
+        this.code = parts[1] ?? '';
+        this.class = parts[2] ?? '';
+        const name = (parts[4] ?? '').split(' - ');
+        this.name1 = name[0] ?? '';
+        this.name2 = name[1] ?? '';
+        this.name3 = name[2] ?? '';
+    }
+
+    /**
      * Parse a summary line into structured fields.
      * @param {string} summary
      * @returns {{courseCode: string, class: string, className: string, courseName: string}}
@@ -44,3 +59,14 @@ export class SummaryParser {
     }
 }
 
+
+
+// console.log(rows.join("\n"));
+
+//v1: /^HZ\+ ?: ?((?:CU|EN)\d+\w*) - (VT|ICT2(?:(?:_|-)NL)?) (?:- )?(gel\. \d)? ?(?:- )?([^-]*(:? - )?)([^-]*(:? - )?)[^-]*$/mg
+//v2: /^HZ\+ ?: ?((?:CU|EN)\d+\w*) - (VT|ICT2(?:(?:_|-)NL)?) (?:- )?(gel\. \d)? ?(?:- )?((.+?)(?= - )(:? - )?)((.+?)((?= - )(:? - ))?)[^-]*$/mg
+//v3: /^HZ\+ ?: ?((?:CU|EN)\d+\w*) - (VT|ICT2(?:(?:_|-)NL)?) (?:- )?(gel\. \d)? ?(?:- )?((.+?)(?= - )(:? - )?)((?:(?! - ).)+)[^-]*$/mg
+//v4: /^HZ\+ ?: ?((?:CU|EN)\d+\w*) - (VT|ICT2(?:(?:_|-)NL)?) (?:- )?(gel\. \d)? ?(?:- )?((.+?)(?= - )(:? - )?)((?:(?! - ).)+)[^-]*$/mg
+
+//v5 two stage: /^HZ\+ ?: ?((?:CU|EN)\d+\w*) - (VT|ICT2(?:(?:_|-)NL)?) (?:- )?(gel\. \d)? ?(?:- )?(.+)$/mg
+// ''.matchAll(/^HZ\+ ?: ?((?:CU|EN)\d+\w*) - (VT|ICT2(?:(?:_|-)NL)?) (?:- )?(gel\. \d)? ?(?:- )?(.+)$/mg)

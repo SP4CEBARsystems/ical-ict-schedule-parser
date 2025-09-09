@@ -6,6 +6,10 @@ import { SummaryParser } from './SummaryParser.js';
 const parser = new ICalParser(icsData);
 console.log(parser.events);
 
+const summaryParsers = parser.events.map(e => new SummaryParser(e.summary));
+
+console.log('summaryParsers', summaryParsers);
+
 const samples = [
     "HZ+ : CU75076V2 - ICT2 Introduction - UVE",
     "HZ+ : CU75016V2 - ICT2_NL - Continuous integration - CIN",
@@ -16,7 +20,7 @@ const samples = [
 ];
 // Parse all
 const parsed = samples.map(SummaryParser.parse);
-console.log(parsed);
+// console.log(parsed);
 // Build tab-separated table
 const headers = ["courseCode", "class", "className", "courseName"];
 const rows = [headers.join('\t'), ...parsed.map(obj => headers.map(h => obj[h]).join('\t'))];

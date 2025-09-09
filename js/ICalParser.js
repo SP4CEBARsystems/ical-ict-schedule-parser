@@ -1,5 +1,40 @@
 // ICalEvent class to represent and parse a single VEVENT block
 class ICalEvent {
+    /**
+     * @type {any}
+     */
+    block
+    
+    /**
+     * @type {string}
+     */
+    uid
+    
+    /**
+     * @type {string}
+     */
+    summary
+    
+    /**
+     * @type {string}
+     */
+    start
+    
+    /**
+     * @type {string}
+     */
+    end
+    
+    /**
+     * @type {string}
+     */
+    location
+    
+    /**
+     * @type {string}
+     */
+    status
+
     constructor(block) {
         this.block = block;
         this.uid = this.getLine("UID");
