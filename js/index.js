@@ -11,11 +11,17 @@ console.log(events);
 const tableFormatted = TableFormatter.format(events);
 console.log(tableFormatted);
 
-navigator.clipboard.writeText(tableFormatted).then(function() {
-    console.log('Async: Copying to clipboard was successful!');
-}, function(err) {
-    console.error('Async: Could not copy text: ', err);
+document.getElementById('copy-btn').addEventListener('click', function() {
+    copyText(tableFormatted);
 });
+
+function copyText(text) {
+    navigator.clipboard.writeText(tableFormatted).then(function() {
+        console.log('Async: Copying to clipboard was successful!');
+    }, function(err) {
+        console.error('Async: Could not copy text: ', err);
+    });
+}
 
 // const summaryParsers = parser.events.map(e => new SummaryParser(e.summary));
 // console.log('summaryParsers', summaryParsers);
