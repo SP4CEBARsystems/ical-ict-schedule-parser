@@ -2,7 +2,7 @@ import icsData from './data.js';
 import { ICalParser } from "./ICalParser.js";
 import { SummaryParser } from './SummaryParser.js';
 import TableFormatter from './TableFormatter.js';
-// import EventTimeFormatter from './TimeParser.js';
+import { setFileTextFromFile, fileText } from './FileTextExtractor.js';
 
 // Usage
 const parser = new ICalParser(icsData);
@@ -22,6 +22,19 @@ function copyText(text) {
         console.error('Async: Could not copy text: ', err);
     });
 }
+
+document.getElementById('ics-file').addEventListener('change', async function(event) {
+    const file = event.target.files[0];
+    if (file) {
+        await setFileTextFromFile(file);
+        // Now fileText contains the file's contents as a string
+        // You can use fileText instead of icsData if needed
+        // Example:
+        // const parser = new ICalParser(fileText);
+        // const events = parser.events;
+        // console.log(events);
+    }
+});
 
 // const summaryParsers = parser.events.map(e => new SummaryParser(e.summary));
 // console.log('summaryParsers', summaryParsers);
