@@ -23,7 +23,7 @@ function start(icsData){
     let events;
     if (!startDate) {
         console.log("no startDate");
-        events = parser.events;
+        events = parser.flattenAll();
     } else {
         events = parser.filterStartDate(startDate);
     }

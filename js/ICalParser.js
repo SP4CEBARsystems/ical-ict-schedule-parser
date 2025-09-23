@@ -30,6 +30,19 @@ export class ICalParser {
         //.flatten()
     }
 
+    flattenAll(){
+        return ICalParser.flattenAll(this.events);
+    }
+
+    /**
+     * 
+     * @param {ICalEvent[]} events 
+     * @returns 
+     */
+    static flattenAll(events){
+        return events.map(item => item.flatten());
+    }
+
     /**
      * 
      * @param {string} startDate 
@@ -37,6 +50,7 @@ export class ICalParser {
      */
     filterStartDate(startDate){
         console.log('startDate', startDate)
-        return this.events.filter(e => e.timeParser.isEndAfterDate(startDate));
+        const filtered = this.events.filter(e => e.timeParser.isEndAfterDate(startDate));
+        return ICalParser.flattenAll(filtered);
     }
 }
