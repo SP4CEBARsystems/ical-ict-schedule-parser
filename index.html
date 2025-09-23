@@ -1,13 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Template</title>
-	<link rel="stylesheet" href="./styles/styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Template</title>
+    <link rel="stylesheet" href="./styles/styles.css">
 </head>
 <body>
-	<button id="copy-btn">Copy</button>
-	<script type="module" src="./js/index.js"></script>
+    <label for="start-date">Start date</label>
+    <input type="date" name="start-date" id="start-date"></input>
+    <input type="file" id="ics-file" accept=".ics,text/calendar">
+    <p id="status-indicator"></p>
+    <button id="copy-btn">Copy Table</button>
+    <pre id="output" style="font-family: monospace; overflow-x: auto; white-space: pre;"></pre>
+    <script type="module" src="./js/index.js"></script>
 </body>
 </html>
