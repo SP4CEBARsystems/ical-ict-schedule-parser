@@ -7,9 +7,14 @@
     <link rel="stylesheet" href="./styles/styles.css">
 </head>
 <body>
+    <h1>ICAL File To Google Sheets Table</h1>
+    <p>Might work on Excel as well.</p>
+    <p>Titles are interptreted to extract event details for agendas at HZ UAS</p>
+    <p>All dates before the provided start date are ignored. Leave it blank to use all dates.</p>
     <label for="start-date">Start date</label>
     <input type="date" name="start-date" id="start-date"></input>
-    <input type="file" id="ics-file" accept=".ics,text/calendar">
+    <label for="ical-file">Ical File</label>
+    <input type="file" id="ics-file" accept=".ics,text/calendar" name="ical-file">
     <p id="status-indicator"></p>
     <button id="copy-btn">Copy Table</button>
     <pre id="output" style="font-family: monospace; overflow-x: auto; white-space: pre;"></pre>
