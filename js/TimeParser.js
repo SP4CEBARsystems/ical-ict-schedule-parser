@@ -9,13 +9,24 @@ export default class EventTimeFormatter {
      * @param {string} end 
      */
     constructor(start, end){
-        const startDate = EventTimeFormatter.parseIcsDate(start);
+        this.startDate2 = EventTimeFormatter.parseIcsDate(start);
         const endDate = EventTimeFormatter.parseIcsDate(end);
-        if (startDate && endDate) {
-            this.startDate = EventTimeFormatter.formatDate(startDate);
-            this.startTime = EventTimeFormatter.formatTime(startDate);
+        if (this.startDate2 && endDate) {
+            this.startDate = EventTimeFormatter.formatDate(this.startDate2);
+            this.startTime = EventTimeFormatter.formatTime(this.startDate2);
             this.endTime = EventTimeFormatter.formatTime(endDate);
         }
+    }
+
+    /**
+     * 
+     * @param {string} date like "2025-09-10"
+     * @returns {boolean}
+     */
+    isEndAfterDate(date){
+        const compareDate = new Date(date);
+        if (!compareDate || !this.startDate2) return false;
+        return this.startDate2 >= compareDate;
     }
 
     /**
